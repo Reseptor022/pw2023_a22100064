@@ -7,11 +7,11 @@ function koneksi()
 
 function query($query)
 {
-  $db = koneksi();
+  $conn = koneksi();
 
-  $result = mysqli_query($db, $query);
+  $result = mysqli_query($conn, $query);
 
-  //jika hasilnya hanya 1 data
+  // jika hasilnya hanya 1 data
   if (mysqli_num_rows($result) == 1) {
     return mysqli_fetch_assoc($result);
   }
@@ -20,12 +20,13 @@ function query($query)
   while ($row = mysqli_fetch_assoc($result)) {
     $rows[] = $row;
   }
+
   return $rows;
 }
 
 function tambah($data)
 {
-  $db = koneksi();
+  $conn = koneksi();
 
   $nama = htmlspecialchars($data['nama']);
   $nrp = htmlspecialchars($data['nrp']);
@@ -37,8 +38,8 @@ function tambah($data)
               mahasiswa
             VALUES
             (null, '$nama', '$nrp', '$email', '$jurusan', '$gambar');
-            ";
-  mysqli_query($db, $query);
-  echo mysqli_error($db);
-  return mysqli_affected_rows($db);
+          ";
+  mysqli_query($conn, $query);
+  echo mysqli_error($conn);
+  return mysqli_affected_rows($conn);
 }
